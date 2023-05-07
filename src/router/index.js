@@ -9,12 +9,52 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
+
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/auth/LoginView.vue')
+    },
+
     {
       path: '/products',
       name: 'products',
       component: () => import('../views/ProductsView.vue')
+    },
+    {
+      path: '/product/:id',
+      name: 'product',
+      component: () => import('../views/ProductView.vue')
+    },
+
+
+    {
+      path: '/adminproducts',
+      name: 'adminproducts',
+      component: () => import('../views/admin/product/ProductsView.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/adminproduct/:id',
+      name: 'adminproduct',
+      component: () => import('../views/admin/product/ProductsView.vue'),
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
 
 export default router
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const isAuthenticated = localStorage.getItem('user')
+  if (requiresAuth && !isAuthenticated) {
+    next('/')
+  } else {
+    next()
+  }
+})

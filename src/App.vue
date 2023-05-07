@@ -1,13 +1,27 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import HeaderComponent from './components/global/HeaderComponent.vue';
+import HeaderComponentAdmin from './components/admin/global/HeaderComponent.vue';
 </script>
 
 <template>
-  <HeaderComponent />
-  <div class="mt-16">
+  <template v-if="$route.path == '/' || $route.path == '/products'">
+    <HeaderComponent />
+    <div class="pt-16">
+      <RouterView />
+    </div>
+  </template>
+  <template v-else-if="$route.path == '/login' || $route.path == '/register'">
     <RouterView />
-  </div>
+  </template>
+  <template v-else>
+    <HeaderComponentAdmin />
+    <div class="p-4 sm:ml-64">
+      <div class="p-4 pt-0">
+        <RouterView />
+      </div>
+    </div>
+  </template>
 </template>
 
 <style scoped>
