@@ -51,7 +51,7 @@
                                         d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
                                 </svg>
                             </button>
-                            <button type="button"
+                            <button type="button" @click="deletePerson(product)"
                                 class="px-2 py-2 text-xs font-medium text-center text-white bg-red-700 rounded-md hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="w-5 h-5">
@@ -66,7 +66,7 @@
             </table>
         </div>
 
-        <div class="p-9 flex justify-end">
+        <div class="mt-6 flex justify-end">
             <nav aria-label="Page navigation example">
                 <ul class="inline-flex items-center -space-x-px">
                     <li :class="{ disabled: currentPage === 1 }">
@@ -106,10 +106,14 @@
 </template>
 
 <script>
+import swal from 'sweetalert'
 export default {
     data() {
         return {
             products: [],
+            product: {
+                idProduct: 0
+            },
 
             //Pagination
             perPage: 8,
@@ -147,6 +151,38 @@ export default {
         }
     },
     methods: {
+        deletePerson(product) {
+            swal({
+                title: "¿Esta seguro?",
+                text: "¿Esta seguro que desea eliminar esta persona?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        this.product.idProduct = product.id_product
+                        const api = import.meta.env.VITE_BASE_URL;
+                        const url = api + 'product'
+                        fetch(url, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(this.product)
+                        })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                swal(data.message)
+                                    .then(() => {
+                                        location.reload()
+                                    });
+                            });
+                    } else {
+                        swal("¡Producto no eliminada!");
+                    }
+                });
+        },
         goToPage(page) {
             this.currentPage = page;
         },
