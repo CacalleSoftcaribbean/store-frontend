@@ -16,8 +16,8 @@ import HeaderComponentAdmin from './components/admin/global/HeaderComponent.vue'
   </template>
   <template v-else>
     <HeaderComponentAdmin />
-    <div class="p-4 sm:ml-64">
-      <div class="p-4 pt-0">
+    <div class="sm:ml-64">
+      <div>
         <RouterView />
       </div>
     </div>

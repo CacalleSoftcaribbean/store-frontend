@@ -10,12 +10,14 @@ const router = createRouter({
       component: HomeView
     },
 
+    //Auth
     {
       path: '/login',
       name: 'login',
       component: () => import('../views/auth/LoginView.vue')
     },
 
+    //View
     {
       path: '/products',
       name: 'products',
@@ -27,7 +29,17 @@ const router = createRouter({
       component: () => import('../views/ProductView.vue')
     },
 
+    //Admin
+    {
+      path: '/admindashboard',
+      name: 'admindashboard',
+      component: () => import('../views/admin/dashboard/DashboardView.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
 
+    //Products
     {
       path: '/adminproducts',
       name: 'adminproducts',
@@ -37,13 +49,13 @@ const router = createRouter({
       }
     },
     {
-      path: '/adminproduct/:id',
-      name: 'adminproduct',
-      component: () => import('../views/admin/product/ProductsView.vue'),
+      path: '/createproduct',
+      name: 'createproduct',
+      component: () => import('../components/admin/products/CreateComponent.vue'),
       meta: {
         requiresAuth: true
       }
-    }
+    },
   ]
 })
 

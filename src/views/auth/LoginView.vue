@@ -5,7 +5,7 @@
             <div class="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
                 <h1 class="font-bold text-center text-2xl mb-5">Iniciar Sesión</h1>
                 <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
-                    <form @sumbit.prevent="login">
+                    <form @submit.prevent="login">
                         <div class="px-5 py-7">
                             <label class="font-semibold text-sm text-gray-600 pb-1 block">Username</label>
                             <input type="text" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
@@ -105,7 +105,7 @@ export default {
                 localStorage.setItem('user', JSON.stringify({ username: this.username, password: this.password }))
                 swal("Enhorabuena!", "Inicio exitoso", "success")
                     .then(() => {
-                        this.$router.push('/dashboard')
+                        this.$router.push('/admindashboard')
                     });
             } else {
                 swal("Error!", "Usuario o contraseña incorrectos", "error");
