@@ -22,6 +22,11 @@ const router = createRouter({
       name: 'login',
       component: () => import('../views/auth/LoginView.vue')
     },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/auth/RegisterView.vue')
+    },
 
     //View
     {
@@ -65,15 +70,6 @@ const router = createRouter({
       }
     },
     {
-      path: '/adminproducts',
-      name: 'adminproducts',
-      component: () => import('../views/admin/product/ProductsView.vue'),
-      meta: {
-        requiresAuth: true,
-        requiredRole: [1]
-      }
-    },
-    {
       path: '/admincategories',
       name: 'admincategories',
       component: () => import('../views/admin/categories/CategoriesView.vue'),
@@ -82,17 +78,17 @@ const router = createRouter({
         requiredRole: [1]
       }
     },
-
-    
     {
-      path: '/createproduct',
-      name: 'createproduct',
-      component: () => import('../views/admin/product/CreateView.vue'),
+      path: '/adminproducts',
+      name: 'adminproducts',
+      component: () => import('../views/admin/product/ProductsView.vue'),
       meta: {
         requiresAuth: true,
         requiredRole: [1]
       }
     },
+
+    
     {
       path: '/createrol',
       name: 'createrol',
@@ -111,8 +107,35 @@ const router = createRouter({
         requiredRole: [1]
       }
     },
+    {
+      path: '/createcategory',
+      name: 'createcategory',
+      component: () => import('../views/admin/categories/CreateView.vue'),
+      meta: {
+        requiresAuth: true,
+        requiredRole: [1]
+      }
+    },
+    {
+      path: '/createproduct',
+      name: 'createproduct',
+      component: () => import('../views/admin/product/CreateView.vue'),
+      meta: {
+        requiresAuth: true,
+        requiredRole: [1]
+      }
+    },
 
-
+    
+    {
+      path: '/editcategory/:id',
+      name: 'editcategory',
+      component: () => import('../views/admin/categories/EditView.vue'),
+      meta: {
+        requiresAuth: true,
+        requiredRole: [1]
+      }
+    },
     {
       path: '/editproduct/:id',
       name: 'editproduct',

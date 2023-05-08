@@ -2,7 +2,7 @@
     <div>
         <div class="p-4">
             <form class="shadow p-3" @submit.prevent="insert">
-                <h2 class="text-center text-2xl font-bold mb-6">Nuevo Producto</h2>
+                <h2 class="text-center text-2xl font-bold mb-6">Nueva Persona</h2>
                 <div class="mb-6">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione
                         la categoria</label>
