@@ -6,65 +6,80 @@
                 <div class="mb-6">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione
                         la categoria</label>
-                    <select v-model="product.categoryDto.idCategory" required=""
+                    <select v-model="person.rolDto.idRol" required=""
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="" selected disabled> -- </option>
-                        <option v-for="category in categories" :key="category.id_category" :value="category.id_category"> {{
-                            category.name }} </option>
+                        <option v-for="rol in roles" :key="rol.id_rol" :value="rol.id_rol"> {{
+                            rol.name }} </option>
                     </select>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="mb-6">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                        <input type="text" v-model="product.name"
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Primer Nombre</label>
+                        <input type="text" v-model="person.firstName"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="" required="">
                     </div>
                     <div class="mb-6">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marca</label>
-                        <input type="text" v-model="product.brand"
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Segundo Nombre</label>
+                        <input type="text" v-model="person.secondName"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="mb-6">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Primer Apellido</label>
+                        <input type="text" v-model="person.firstLastname"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="" required="">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Segundo Apellido</label>
+                        <input type="text" v-model="person.secondLastname"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="" required="">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="mb-6">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
+                        <input type="phone" v-model="person.phone"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo
+                            Electronico</label>
+                        <input type="email" v-model="person.email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="" required="">
                     </div>
                 </div>
                 <div class="mb-6">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
-                    <textarea type="text" v-model="product.description"
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de Nacimiento</label>
+                    <input type="date" v-model="person.dateBirth"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder=""></textarea>
+                        placeholder="">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="mb-6">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Modelo</label>
-                        <input type="text" v-model="product.model"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="">
-                    </div>
-                    <div class="mb-6">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
-                        <input type="number" v-model="product.price"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="" required="">
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="mb-6">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
-                        <input type="number" v-model="product.stock"
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
+                        <input type="text" v-model="user.username"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="" required="">
                     </div>
                     <div class="mb-6">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imagen</label>
-                        <input type="text" v-model="product.image"
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                        <input type="password" v-model="user.password"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="">
+                            placeholder="" required="">
                     </div>
                 </div>
                 <div class="flex justify-end gap-3">
                     <button type="submit"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
-                    <a href="/adminproducts">
+                    <a href="/adminpersons">
                         <button type="button"
                             class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Salir</button>
                     </a>
@@ -79,26 +94,33 @@ import swal from 'sweetalert'
 export default {
     data() {
         return {
-            product: {
-                brand: '',
-                categoryDto: {
-                    idCategory: 0,
+            person: {
+                email: '',
+                firstLastname: '',
+                firstName: '',
+                idPerson: 0,
+                phone: '',
+                rolDto: {
+                    idRol: 0,
                 },
-                description: '',
-                image: '',
-                model: '',
-                name: '',
-                price: null,
-                status: null,
-                stock: null
+                secondLastname: '',
+                secondName: '',
+                dateBirth: ''
             },
-            categories: []
+            user: {
+                username: '',
+                password: '',
+                personDto: {
+                    idPerson: 0,
+                }
+            },
+            roles: []
         }
     },
     mounted() {
         const api = import.meta.env.VITE_BASE_URL;
 
-        const url = api + 'category'
+        const url = api + 'rol'
         fetch(url, {
             method: 'GET',
             headers: {
@@ -106,26 +128,40 @@ export default {
             }
         })
             .then(response => response.json())
-            .then(data => this.categories = data.data)
+            .then(data => this.roles = data.data)
     },
     methods: {
         insert() {
             const api = import.meta.env.VITE_BASE_URL;
-            const url = api + 'product'
+            const url = api + 'person'
             fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.product),
+                body: JSON.stringify(this.person),
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    swal(data.message)
-                        .then(() => {
-                            window.location.assign("/adminproducts")
-                        });
-                });
+                    this.user.personDto.idPerson = data.data.idPerson;
+
+                    const url = api + 'user'
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(this.user),
+                    })
+                        .then((response) => response.json())
+                    .then((data) => {
+                        swal(data.message)
+                            .then(() => {
+                                window.location.assign("/adminpersons")
+                            });
+                    });
+                })
+
         },
     }
 }

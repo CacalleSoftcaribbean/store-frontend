@@ -17,7 +17,7 @@ onMounted(() => {
                 <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <a href="https://flowbite.com/" class="flex items-center">
                         <img src="https://cdn-icons-png.flaticon.com/512/4990/4990576.png" class="h-8 mr-3" alt="Flowbite Logo" />
-                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tienda Online</span>
+                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Hulk Store</span>
                     </a>
                     <div class="flex md:order-2">
                         <a href="/login">

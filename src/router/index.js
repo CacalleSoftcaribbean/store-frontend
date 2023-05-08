@@ -94,6 +94,26 @@ const router = createRouter({
       }
     },
     {
+      path: '/createrol',
+      name: 'createrol',
+      component: () => import('../views/admin/roles/CreateView.vue'),
+      meta: {
+        requiresAuth: true,
+        requiredRole: [1]
+      }
+    },
+    {
+      path: '/createperson',
+      name: 'createperson',
+      component: () => import('../views/admin/persons/CreateView.vue'),
+      meta: {
+        requiresAuth: true,
+        requiredRole: [1]
+      }
+    },
+
+
+    {
       path: '/editproduct/:id',
       name: 'editproduct',
       component: () => import('../views/admin/product/EditView.vue'),
@@ -112,7 +132,9 @@ router.beforeEach((to, from, next) => {
   const requiredRole = to.meta.requiredRole;
   const isAuthenticated = localStorage.getItem('user');
   const userRole = isAuthenticated ? parseInt(JSON.parse(isAuthenticated).rol) : null;
-  if (requiresAuth && !isAuthenticated) {
+  if (!requiresAuth && isAuthenticated && to.name === 'login') {
+    next('/admindashboard');
+  }else if (requiresAuth && !isAuthenticated) {
     next('/')
   } else if (requiredRole && requiredRole.length > 0 && (!isAuthenticated || !requiredRole.includes(userRole))) {
     next('/notfound'); 
