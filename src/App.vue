@@ -5,7 +5,10 @@ import HeaderComponentAdmin from './components/admin/global/HeaderComponent.vue'
 </script>
 
 <template>
-  <template v-if="$route.path == '/' || $route.path == '/products'">
+  <template v-if="$route.params.pathMatch !== undefined">
+    <RouterView />
+  </template>
+  <template v-else-if="$route.path == '/' || $route.path == '/products'">
     <HeaderComponent />
     <div class="pt-16">
       <RouterView />

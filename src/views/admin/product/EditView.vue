@@ -1,15 +1,14 @@
 <template>
     <div>
         <div class="p-4">
-            <form class="shadow p-3" @submit.prevent="insert">
+            <form class="shadow p-3" @submit.prevent="update">
                 <h2 class="text-center text-2xl font-bold mb-6">Nuevo Producto</h2>
                 <div class="mb-6">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione
                         la categoria</label>
                     <select v-model="product.categoryDto.idCategory" required=""
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="" selected disabled> -- </option>
-                            <option v-for="category in categories" :key="category.id_category" :value="category.id_category"> {{ category.name }} </option>
+                        <option v-for="category in categories" :key="category.id_category" :value="category.id_category"> {{ category.name }} </option>
                     </select>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -94,6 +93,7 @@ export default {
                 image: '',
                 model: '',
                 name: '',
+                idProduct: 0,
                 price: null,
                 status: null,
                 stock: null
@@ -104,8 +104,19 @@ export default {
     mounted() {
         const api = import.meta.env.VITE_BASE_URL;
 
-        const url = api + 'category'
-        fetch(url, {
+        const urlCategory = api + 'product/' + this.$route.params.id
+        fetch(urlCategory, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(data => this.product = data.data)
+
+
+        const urlProduct = api + 'category'
+        fetch(urlProduct, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json"
@@ -115,11 +126,11 @@ export default {
             .then(data => this.categories = data.data)
     },
     methods: {
-        insert() {
+        update() {
             const api = import.meta.env.VITE_BASE_URL;
-            const url = api + 'product'
+            const url = api + 'product/' 
             fetch(url, {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },

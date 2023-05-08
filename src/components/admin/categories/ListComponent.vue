@@ -1,6 +1,6 @@
 <template>
     <section class="py-10 px-4">
-        <a href="/createproduct">
+        <a href="/createcategory">
             <button type="button"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Nuevo</button>
         </a>
@@ -15,10 +15,7 @@
                             Nombre
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Stock
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Precio
+                            Descripción
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Acciones
@@ -26,22 +23,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="product in productsPaginated" :key="product.id_product"
+                    <tr v-for="category in categoriesPaginated" :key="category.id_category"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ product.id_product }}
+                            {{ category.id_category }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ product.name }}
+                            {{ category.name }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ product.stock }}
-                        </td>
-                        <td class="px-6 py-4">
-                            ${{ product.price }}
+                            {{ category.description }}
                         </td>
                         <td class="px-6 py-4 flex gap-2">
-                            <button type="button" @click="editPerson(product.id_product)"
+                            <button type="button" @click="editPerson(category.id_category)"
                                 class="px-2 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-md hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="w-5 h-5">
@@ -51,7 +45,7 @@
                                         d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
                                 </svg>
                             </button>
-                            <button type="button" @click="deletePerson(product)"
+                            <button type="button" @click="deletePerson(category)"
                                 class="px-2 py-2 text-xs font-medium text-center text-white bg-red-700 rounded-md hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="w-5 h-5">
@@ -110,9 +104,9 @@ import swal from 'sweetalert'
 export default {
     data() {
         return {
-            products: [],
-            product: {
-                idProduct: 0
+            categories: [],
+            category: {
+                idCategory: 0
             },
 
             //Pagination
@@ -123,7 +117,7 @@ export default {
     mounted() {
         const api = import.meta.env.VITE_BASE_URL;
 
-        const url = api + 'product'
+        const url = api + 'category'
         fetch(url, {
             method: 'GET',
             headers: {
@@ -131,16 +125,16 @@ export default {
             }
         })
             .then(response => response.json())
-            .then(data => this.products = data.data)
+            .then(data => this.categories = data.data)
     },
     computed: {
         pageCount() {
-            return Math.ceil(this.products.length / this.perPage)
+            return Math.ceil(this.categories.length / this.perPage)
         },
-        productsPaginated() {
+        categoriesPaginated() {
             const start = (this.currentPage - 1) * this.perPage;
             const end = start + this.perPage;
-            return this.products.slice(start, end);
+            return this.categories.slice(start, end);
         },
         pages() {
             const pages = [];
@@ -152,9 +146,9 @@ export default {
     },
     methods: {
         editPerson(id) {
-            this.$router.push('/editproduct/' + id);
+            this.$router.push('/editcategory/' + id);
         },
-        deletePerson(product) {
+        deletePerson(category) {
             swal({
                 title: "¿Esta seguro?",
                 text: "¿Esta seguro que desea eliminar esta persona?",
@@ -164,15 +158,15 @@ export default {
             })
                 .then((willDelete) => {
                     if (willDelete) {
-                        this.product.idProduct = product.id_product
+                        this.category.idCategory = category.id_category
                         const api = import.meta.env.VITE_BASE_URL;
-                        const url = api + 'product'
+                        const url = api + 'category'
                         fetch(url, {
                             method: 'DELETE',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify(this.product)
+                            body: JSON.stringify(this.category)
                         })
                             .then((response) => response.json())
                             .then((data) => {
@@ -182,7 +176,7 @@ export default {
                                     });
                             });
                     } else {
-                        swal("¡Producto no eliminada!");
+                        swal("¡Categoria no eliminada!");
                     }
                 });
         },

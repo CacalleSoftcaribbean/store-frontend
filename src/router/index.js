@@ -10,6 +10,12 @@ const router = createRouter({
       component: HomeView
     },
 
+    //Not Found
+    {
+      path: '/:pathMatch(.*)*',
+      component: () => import('../views/NotFoundView.vue')
+    },
+
     //Auth
     {
       path: '/login',
@@ -35,25 +41,65 @@ const router = createRouter({
       name: 'admindashboard',
       component: () => import('../views/admin/dashboard/DashboardView.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
       }
     },
 
-    //Products
+
+    {
+      path: '/adminroles',
+      name: 'adminroles',
+      component: () => import('../views/admin/roles/RolesView.vue'),
+      meta: {
+        requiresAuth: true,
+        requiredRole: [1]
+      }
+    },
+    {
+      path: '/adminpersons',
+      name: 'adminpersons',
+      component: () => import('../views/admin/persons/PersonsView.vue'),
+      meta: {
+        requiresAuth: true,
+        requiredRole: [1]
+      }
+    },
     {
       path: '/adminproducts',
       name: 'adminproducts',
       component: () => import('../views/admin/product/ProductsView.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiredRole: [1]
       }
     },
+    {
+      path: '/admincategories',
+      name: 'admincategories',
+      component: () => import('../views/admin/categories/CategoriesView.vue'),
+      meta: {
+        requiresAuth: true,
+        requiredRole: [1]
+      }
+    },
+
+    
     {
       path: '/createproduct',
       name: 'createproduct',
       component: () => import('../views/admin/product/CreateView.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiredRole: [1]
+      }
+    },
+    {
+      path: '/editproduct/:id',
+      name: 'editproduct',
+      component: () => import('../views/admin/product/EditView.vue'),
+      meta: {
+        requiresAuth: true,
+        requiredRole: [1]
       }
     },
   ]
@@ -63,9 +109,13 @@ export default router
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  const isAuthenticated = localStorage.getItem('user')
+  const requiredRole = to.meta.requiredRole;
+  const isAuthenticated = localStorage.getItem('user');
+  const userRole = isAuthenticated ? parseInt(JSON.parse(isAuthenticated).rol) : null;
   if (requiresAuth && !isAuthenticated) {
     next('/')
+  } else if (requiredRole && requiredRole.length > 0 && (!isAuthenticated || !requiredRole.includes(userRole))) {
+    next('/notfound'); 
   } else {
     next()
   }
