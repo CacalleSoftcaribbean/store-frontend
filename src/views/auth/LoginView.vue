@@ -102,7 +102,7 @@ export default {
             // let username = this.admins.findIndex(e => e.username == this.username)
             // let password = this.admins.findIndex(e => e.password == this.password)
             if (this.username == 'calle' && this.password == '1234') {
-                localStorage.setItem('user', JSON.stringify({ username: this.username, password: this.password, rol: 1 }))
+                localStorage.setItem('user', JSON.stringify({ username: this.username, password: this.password, rol: 2, person: 8 }))
                 swal("Enhorabuena!", "Inicio exitoso", "success")
                     .then(() => {
                         this.$router.push('/admindashboard')
